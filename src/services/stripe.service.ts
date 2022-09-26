@@ -68,6 +68,10 @@ export class StripeService {
     return this.stripe.customers.create(data);
   }
 
+  deleteCustomer(customerId: string) {
+    return this.stripe.customers.del(customerId);
+  }
+
   async getCustomers(config: {expand?: PlanExpandEnum[], limit?: number} = {}) {
     const customers = await this.stripe.customers.list({
       expand: config.expand,
@@ -130,6 +134,7 @@ export class StripeService {
   }
 
   async getTestClocks() {
-    this.stripe.testHelpers.testClocks.list();
+    const testClocks = await this.stripe.testHelpers.testClocks.list();
+    return testClocks.data;
   }
 }
